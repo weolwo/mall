@@ -151,4 +151,14 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="checkUser" parameterType="string" resultType="int">
+    select count(1) from t_uesr where username=#{username}
+  </select>
+  <select id="login" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List"/>
+    /*#可以防止sql注入,因为sql会预编译*/
+    from t_user where uesrname=#{username} and password=#{password}
+  </select>
 </mapper>
