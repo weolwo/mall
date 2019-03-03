@@ -60,7 +60,7 @@ public class ServerResponse<T> implements Serializable {
         return data;
     }
     @JsonIgnore//使之不再序列化的结果之中
-    public boolean isSuccess(){
+    public  boolean isSuccess(){
         return this.staus==ResponseCode.SUCCESS.getCode();
     }
     public static <T>  ServerResponse<T> createBySuccess(){

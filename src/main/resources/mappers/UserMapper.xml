@@ -152,13 +152,51 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="checkUser" parameterType="string" resultType="int">
-    select count(1) from t_uesr where username=#{username}
+
+  <select id="checkUser" resultType="int" parameterType="string" >
+    select count(1) from t_user
+    where username = #{username}
+  </select>
+  <select id="checkEmail" resultType="int" parameterType="string" >
+    select count(1) from t_user
+    where email = #{email}
   </select>
   <select id="login" resultMap="BaseResultMap" parameterType="map">
-    select
-    <include refid="Base_Column_List"/>
-    /*#可以防止sql注入,因为sql会预编译*/
-    from t_user where uesrname=#{username} and password=#{password}
+    SELECT
+    --     *???//这样真的好么?答案就是,这样不好.
+    <include refid="Base_Column_List" />
+    from t_user
+    where username = #{username}
+    and password = #{password}
   </select>
+  <select id="forgetGetQuestion" resultType="string" parameterType="string">
+    select question from t_user where username=#{username}
+  </select>
+  <select id="checkAnswer" resultType="int" parameterType="map">
+     SELECT
+    count(1)
+    from t_user
+    where username=#{username}
+    and question = #{question}
+    and answer = #{answer}
+  </select>
+  <select id="checkPassword" resultType="int" parameterType="map">
+     SELECT
+    count(1)
+    from t_user
+    where password = #{password}
+    and id = #{userId}
+  </select>
+  <select id="checkByUserIdEmail" parameterType="map" resultType="int">
+     select count(1) from t_user
+      where
+       id != #{userId}
+       and
+      email = #{email}
+  </select>
+  <update id="forgetPassword" parameterType="map">
+      update t_user
+      SET password = #{md5Password},update_time = now()
+      where username = #{username}
+  </update>
 </mapper>
