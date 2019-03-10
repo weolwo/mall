@@ -1,4 +1,4 @@
-package com.mall.back;
+package com.mall.back.controller;
 
 import com.mall.back.service.CategoryService;
 import com.mall.common.ConstantCode;

@@ -1,4 +1,4 @@
-package com.mall.back;
+package com.mall.back.controller;
 
 import com.mall.common.ConstantCode;
 import com.mall.common.ServerResponse;
