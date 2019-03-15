@@ -176,4 +176,24 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selecList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_product order by desc
+  </select>
+
+  <select id="searchProductList" resultMap="com.mall.dao.CartMapper.BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from t_product
+    <where>
+      <if test="productName!=null">
+        and productNmae like productName
+      </if>
+      <if test="productId!=null">
+        and productNmae =#{productId}
+      </if>
+    </where>
+  </select>
 </mapper>
